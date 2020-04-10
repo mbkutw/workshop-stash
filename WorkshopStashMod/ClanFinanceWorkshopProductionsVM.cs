@@ -51,7 +51,7 @@ namespace WorkshopStashMod
                 }
             }
 
-            var realItem = ItemObject.AllTradeGoods.FirstOrDefault(x => _inputType == x.ItemCategory);
+            var realItem = ItemObject.All.FirstOrDefault(x => _inputType == x.ItemCategory);
             InputName = realItem.Name.ToString();
             ImageIdentifier = new ImageIdentifierVM(realItem);
         }
