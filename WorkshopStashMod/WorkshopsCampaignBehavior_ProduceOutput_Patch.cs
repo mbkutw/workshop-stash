@@ -11,7 +11,7 @@ using TaleWorlds.Core;
 namespace WorkshopStashMod
 {
     [HarmonyPatch(typeof(WorkshopsCampaignBehavior), "ProduceOutput")]
-    public static class WorkshopsCampaignBehavior_ProductOutput_Patch
+    public static class WorkshopsCampaignBehavior_ProduceOutput_Patch
     {
         public static bool Prefix(
             ItemObject outputItem,

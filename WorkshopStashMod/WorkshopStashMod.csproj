@@ -201,6 +201,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClanFinanceWorkshopItemExpandedVM.cs" />
+    <Compile Include="ClanFinanceWorkshopProductionsVM.cs" />
+    <Compile Include="ClanIncomeVM_RefreshList_Patch.cs" />
     <Compile Include="WorkshopStashSubModule.cs" />
     <Compile Include="WorkshopsCampaignBehavior_ConsumeInput_Patch.cs" />
     <Compile Include="WorkshopsCampaignBehavior_DoProduction_Patch.cs" />
@@ -208,7 +211,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TownWorkshopStash.cs" />
     <Compile Include="WorkshopStashSaveableTypeDefiner.cs" />
-    <Compile Include="WorkshopsCampaignBehavior_ProductOutput_Patch.cs" />
+    <Compile Include="WorkshopsCampaignBehavior_ProduceOutput_Patch.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SubModule.xml" />
