@@ -31,28 +31,22 @@ namespace WorkshopStashMod
             var town = _ownWorkshopCopy.Settlement.GetComponent<Town>();
             var stash = MBObjectManager.Instance.GetObject<TownWorkshopStash>(x => x.Town == town);
             AmountInStash = (stash?.Stash.Where(x => x.EquipmentElement.Item.ItemCategory == _inputType).Sum(x => x.Amount) ?? 0).ToString();
-            PriceBrush = "Clan.Finance.TotalIncome.Text";
-            var index = town.Owner.ItemRoster.FindIndex(x => x.ItemCategory == _inputType);
-            if (index < 0)
-            {
-                AmountInTown = 0.ToString();
-                PriceInTown = 0.ToString();
-            }
-            else
-            {
-                AmountInTown = town.Owner.ItemRoster.GetElementNumber(index).ToString();
-                var item = town.Owner.ItemRoster.GetItemAtIndex(index);
-                var price = town.GetItemPrice(item);
-                PriceInTown = price.ToString();
 
-                if(price > _inputType.AverageValue)
-                {
-                    PriceBrush = "Clan.Finance.TotalExpenses.Text";
-                }
+
+            var items = town.Owner.ItemRoster.Where(x => x.EquipmentElement.Item.ItemCategory == _inputType && x.Amount > 0);
+            var totalAmount = items.Sum(x => x.Amount);
+            AmountInTown = totalAmount.ToString();
+            var price = totalAmount == 0 ? 0 : items.Sum(x => town.GetItemPrice(x) * x.Amount) / (float)totalAmount;
+            PriceInTown = ((int)price).ToString();
+
+            PriceBrush = "Clan.Finance.TotalIncome.Text";
+            if (price > _inputType.AverageValue)
+            {
+                PriceBrush = "Clan.Finance.TotalExpenses.Text";
             }
 
             var realItem = ItemObject.All.FirstOrDefault(x => _inputType == x.ItemCategory);
-            InputName = realItem.Name.ToString();
+            InputName = _inputType.GetName().ToString();
             ImageIdentifier = new ImageIdentifierVM(realItem);
         }
 
