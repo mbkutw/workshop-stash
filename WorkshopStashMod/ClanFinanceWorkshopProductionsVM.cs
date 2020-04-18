@@ -36,7 +36,7 @@ namespace WorkshopStashMod
             var items = town.Owner.ItemRoster.Where(x => x.EquipmentElement.Item.ItemCategory == _inputType && x.Amount > 0);
             var totalAmount = items.Sum(x => x.Amount);
             AmountInTown = totalAmount.ToString();
-            var price = totalAmount == 0 ? 0 : items.Sum(x => town.GetItemPrice(x) * x.Amount) / (float)totalAmount;
+            var price = totalAmount == 0 ? 0 : items.Sum(x => town.GetItemPrice(x.EquipmentElement) * x.Amount) / (float)totalAmount;
             PriceInTown = ((int)price).ToString();
 
             PriceBrush = "Clan.Finance.TotalIncome.Text";
