@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony, Version=2.0.0.9, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Lib.Harmony.2.0.0.9\lib\net472\0Harmony.dll</HintPath>
@@ -214,15 +217,23 @@
     <Compile Include="WorkshopsCampaignBehavior_ProduceOutput_Patch.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="GUI\Prefabs\Clan\ClanIncome.xml" />
     <Content Include="SubModule.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <GUIFiles Include="$(ProjectDir)\GUI\**\*.*"/>
+  </ItemGroup>
   <Target Name="AfterBuild">
     <Copy SourceFiles="$(TargetDir)\0Harmony.dll" DestinationFolder="$(MODDIR)\bin\Win64_Shipping_Client\" />
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(MODDIR)\bin\Win64_Shipping_Client\" />
     <Copy SourceFiles="$(ProjectDir)\SubModule.xml" DestinationFolder="$(MODDIR)" />
+    <Copy
+        SourceFiles="@(GUIFiles)"
+        DestinationFiles="@(GUIFiles->'$(MODDIR)\GUI\%(RecursiveDir)%(Filename)%(Extension)')"
+        />
   </Target>
 </Project>
